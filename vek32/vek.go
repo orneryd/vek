@@ -418,6 +418,8 @@ func Dot(x, y []float32) float32 {
 	checkEqualLength(x, y)
 	if functions.UseAVX2 {
 		return functions.Dot_AVX2_F32(x, y)
+	} else if functions.UseNEON {
+		return functions.Dot_NEON_F32(x, y)
 	} else {
 		return functions.Dot_Go(x, y)
 	}
@@ -428,6 +430,8 @@ func Norm(x []float32) float32 {
 	checkNotEmpty(x)
 	if functions.UseAVX2 {
 		return functions.Norm_AVX2_F32(x)
+	} else if functions.UseNEON {
+		return functions.Norm_NEON_F32(x)
 	} else {
 		return functions.Norm_Go_F32(x)
 	}
@@ -439,6 +443,8 @@ func Distance(x, y []float32) float32 {
 	checkEqualLength(x, y)
 	if functions.UseAVX2 {
 		return functions.Distance_AVX2_F32(x, y)
+	} else if functions.UseNEON {
+		return functions.Distance_NEON_F32(x, y)
 	} else {
 		return functions.Distance_Go_F32(x, y)
 	}
@@ -471,6 +477,8 @@ func CosineSimilarity(x, y []float32) float32 {
 	checkEqualLength(x, y)
 	if functions.UseAVX2 {
 		return functions.CosineSimilarity_AVX2_F32(x, y)
+	} else if functions.UseNEON {
+		return functions.CosineSimilarity_NEON_F32(x, y)
 	} else {
 		return functions.CosineSimilarity_Go_F32(x, y)
 	}

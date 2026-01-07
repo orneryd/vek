@@ -46,6 +46,7 @@ var cpuFeatures = map[string]bool{
 	"SSSE3":            cpu.X86.HasSSSE3,            // Supplemental streaming SIMD extension 3
 	"SSE41":            cpu.X86.HasSSE41,            // Streaming SIMD extension 4 and 4.1
 	"SSE42":            cpu.X86.HasSSE42,            // Streaming SIMD extension 4 and 4.2
+	"NEON":             cpu.ARM64.HasASIMD,          // Advanced SIMD (NEON)
 }
 
 // SystemInfo contains information about the current operating environment.
@@ -67,6 +68,6 @@ func Info() SystemInfo {
 	return SystemInfo{
 		CPUArchitecture: runtime.GOARCH,
 		CPUFeatures:     features,
-		Acceleration:    functions.UseAVX2,
+		Acceleration:    functions.UseAVX2 || functions.UseNEON,
 	}
 }

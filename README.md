@@ -173,10 +173,10 @@ func main() {
 
 ### SIMD Acceleration
 
-SIMD Acceleration is enabled by default on supported platforms, which is any x86/amd64 CPU with
-the AVX2 and FMA extensions. Use `vek.Info()` to see if hardware acceleration is enabled. Turn
-it off or on with `vek.SetAcceleration()`. *Acceleration is currently disabled by default on
-mac as I have no machine to test it on*.
+SIMD Acceleration is enabled by default on supported platforms. On x86/amd64 this requires the
+AVX2 and FMA extensions (disabled by default on darwin/amd64). On arm64, NEON acceleration is
+enabled when building with `cgo` (disable with `-tags nosimd`). Use `vek.Info()` to see if
+hardware acceleration is enabled. Turn it off or on with `vek.SetAcceleration()`.
 
 ```go
 package main
@@ -357,3 +357,14 @@ Times are in nanoseconds. Functions are inplace.
 | **vek.Mat4Mul**   |                    26 |                       5 |              |                |          5x |
 | **vek32.Mat4Mul** |                    26 |                       5 |              |                |          5x |
 
+### ARM64 NEON Benchmarks (Apple M3 Max)
+
+NEON acceleration is available for distance-related float32 functions on ARM64. Note that CGO
+overhead makes NEON slower for very small vectors; the speedup becomes significant at ~100+ elements.
+
+|                            | **1k, Go** | **1k, NEON** | **10k, Go** | **10k, NEON** | **speedup** |
+| -------------------------- | ---------: | -----------: | ----------: | ------------: | ----------: |
+| **vek32.Dot**              |        263 |          144 |       2,594 |         1,241 |          2x |
+| **vek32.Norm**             |        882 |          143 |       9,265 |         1,235 |          7x |
+| **vek32.Distance**         |        907 |          149 |       9,370 |         1,317 |          7x |
+| **vek32.CosineSimilarity** |        902 |          159 |       9,161 |         1,338 |          7x |

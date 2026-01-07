@@ -1492,10 +1492,24 @@ func ToFloat32_Into(dst []float32, x []float64) []float32 {
 
 // SetAcceleration toggles simd acceleration. Not thread safe.
 func SetAcceleration(enabled bool) {
-	if enabled && !(cpu.X86.HasAVX2 && cpu.X86.HasFMA) {
-		panic("acceleration not supported on this platform")
+	if !enabled {
+		functions.UseAVX2 = false
+		functions.UseNEON = false
+		return
 	}
-	functions.UseAVX2 = enabled
+
+	if cpu.X86.HasAVX2 && cpu.X86.HasFMA {
+		functions.UseAVX2 = true
+		functions.UseNEON = false
+		return
+	}
+	if functions.HasNEON {
+		functions.UseAVX2 = false
+		functions.UseNEON = true
+		return
+	}
+
+	panic("acceleration not supported on this platform")
 }
 
 // Validation
