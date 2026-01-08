@@ -24,6 +24,8 @@ func Add_Inplace(x, y []float32) {
 	checkOverlap(x, y)
 	if functions.UseAVX2 {
 		functions.Add_AVX2_F32(x, y)
+	} else if functions.UseNEON {
+		functions.Add_NEON_F32(x, y)
 	} else {
 		functions.Add_Go(x, y)
 	}
@@ -51,6 +53,8 @@ func Sub_Inplace(x, y []float32) {
 	checkOverlap(x, y)
 	if functions.UseAVX2 {
 		functions.Sub_AVX2_F32(x, y)
+	} else if functions.UseNEON {
+		functions.Sub_NEON_F32(x, y)
 	} else {
 		functions.Sub_Go(x, y)
 	}
@@ -78,6 +82,8 @@ func Mul_Inplace(x, y []float32) {
 	checkOverlap(x, y)
 	if functions.UseAVX2 {
 		functions.Mul_AVX2_F32(x, y)
+	} else if functions.UseNEON {
+		functions.Mul_NEON_F32(x, y)
 	} else {
 		functions.Mul_Go(x, y)
 	}
@@ -105,6 +111,8 @@ func Div_Inplace(x, y []float32) {
 	checkOverlap(x, y)
 	if functions.UseAVX2 {
 		functions.Div_AVX2_F32(x, y)
+	} else if functions.UseNEON {
+		functions.Div_NEON_F32(x, y)
 	} else {
 		functions.Div_Go(x, y)
 	}
@@ -130,6 +138,8 @@ func AddNumber(x []float32, a float32) []float32 {
 func AddNumber_Inplace(x []float32, a float32) {
 	if functions.UseAVX2 {
 		functions.AddNumber_AVX2_F32(x, a)
+	} else if functions.UseNEON {
+		functions.AddNumber_NEON_F32(x, a)
 	} else {
 		functions.AddNumber_Go(x, a)
 	}
@@ -156,6 +166,8 @@ func SubNumber(x []float32, a float32) []float32 {
 func SubNumber_Inplace(x []float32, a float32) {
 	if functions.UseAVX2 {
 		functions.SubNumber_AVX2_F32(x, a)
+	} else if functions.UseNEON {
+		functions.SubNumber_NEON_F32(x, a)
 	} else {
 		functions.SubNumber_Go(x, a)
 	}
@@ -182,6 +194,8 @@ func MulNumber(x []float32, a float32) []float32 {
 func MulNumber_Inplace(x []float32, a float32) {
 	if functions.UseAVX2 {
 		functions.MulNumber_AVX2_F32(x, a)
+	} else if functions.UseNEON {
+		functions.MulNumber_NEON_F32(x, a)
 	} else {
 		functions.MulNumber_Go(x, a)
 	}
@@ -208,6 +222,8 @@ func DivNumber(x []float32, a float32) []float32 {
 func DivNumber_Inplace(x []float32, a float32) {
 	if functions.UseAVX2 {
 		functions.DivNumber_AVX2_F32(x, a)
+	} else if functions.UseNEON {
+		functions.DivNumber_NEON_F32(x, a)
 	} else {
 		functions.DivNumber_Go(x, a)
 	}
@@ -234,6 +250,8 @@ func Abs(x []float32) []float32 {
 func Abs_Inplace(x []float32) {
 	if functions.UseAVX2 {
 		functions.Abs_AVX2_F32(x)
+	} else if functions.UseNEON {
+		functions.Abs_NEON_F32(x)
 	} else {
 		functions.Abs_Go_F32(x)
 	}
@@ -260,6 +278,8 @@ func Neg(x []float32) []float32 {
 func Neg_Inplace(x []float32) {
 	if functions.UseAVX2 {
 		functions.Neg_AVX2_F32(x)
+	} else if functions.UseNEON {
+		functions.Neg_NEON_F32(x)
 	} else {
 		functions.Neg_Go(x)
 	}
@@ -286,6 +306,8 @@ func Inv(x []float32) []float32 {
 func Inv_Inplace(x []float32) {
 	if functions.UseAVX2 {
 		functions.Inv_AVX2_F32(x)
+	} else if functions.UseNEON {
+		functions.Inv_NEON_F32(x)
 	} else {
 		functions.Inv_Go(x)
 	}
@@ -307,6 +329,8 @@ func Inv_Into(dst, x []float32) []float32 {
 func Sum(x []float32) float32 {
 	if functions.UseAVX2 {
 		return functions.Sum_AVX2_F32(x)
+	} else if functions.UseNEON {
+		return functions.Sum_NEON_F32(x)
 	} else {
 		return functions.Sum_Go(x)
 	}
@@ -324,6 +348,8 @@ func CumSum(x []float32) []float32 {
 func CumSum_Inplace(x []float32) {
 	if functions.UseAVX2 {
 		functions.CumSum_AVX2_F32(x)
+	} else if functions.UseNEON {
+		functions.CumSum_NEON_F32(x)
 	} else {
 		functions.CumSum_Go(x)
 	}
@@ -343,6 +369,8 @@ func CumSum_Into(dst, x []float32) []float32 {
 func Prod(x []float32) float32 {
 	if functions.UseAVX2 {
 		return functions.Prod_AVX2_F32(x)
+	} else if functions.UseNEON {
+		return functions.Prod_NEON_F32(x)
 	} else {
 		return functions.Prod_Go(x)
 	}
@@ -361,6 +389,8 @@ func CumProd(x []float32) []float32 {
 func CumProd_Inplace(x []float32) {
 	if functions.UseAVX2 {
 		functions.CumProd_AVX2_F32(x)
+	} else if functions.UseNEON {
+		functions.CumProd_NEON_F32(x)
 	} else {
 		functions.CumProd_Go(x)
 	}
@@ -381,6 +411,8 @@ func Mean(x []float32) float32 {
 	checkNotEmpty(x)
 	if functions.UseAVX2 {
 		return functions.Mean_AVX2_F32(x)
+	} else if functions.UseNEON {
+		return functions.Mean_NEON_F32(x)
 	} else {
 		return functions.Mean_Go(x)
 	}
@@ -391,6 +423,8 @@ func Median(x []float32) float32 {
 	checkNotEmpty(x)
 	if functions.UseAVX2 {
 		return functions.Median_AVX2_F32(x)
+	} else if functions.UseNEON {
+		return functions.Median_NEON_F32(x)
 	} else {
 		return functions.Median_Go(x)
 	}
@@ -405,6 +439,8 @@ func Quantile(x []float32, q float32) float32 {
 	checkNotEmpty(x)
 	if functions.UseAVX2 {
 		return functions.Quantile_AVX2_F32(x, q)
+	} else if functions.UseNEON {
+		return functions.Quantile_NEON_F32(x, q)
 	} else {
 		return functions.Quantile_Go(x, q)
 	}
@@ -455,6 +491,8 @@ func ManhattanNorm(x []float32) float32 {
 	checkNotEmpty(x)
 	if functions.UseAVX2 {
 		return functions.ManhattanNorm_AVX2_F32(x)
+	} else if functions.UseNEON {
+		return functions.ManhattanNorm_NEON_F32(x)
 	} else {
 		return functions.ManhattanNorm_Go_F32(x)
 	}
@@ -466,6 +504,8 @@ func ManhattanDistance(x, y []float32) float32 {
 	checkEqualLength(x, y)
 	if functions.UseAVX2 {
 		return functions.ManhattanDistance_AVX2_F32(x, y)
+	} else if functions.UseNEON {
+		return functions.ManhattanDistance_NEON_F32(x, y)
 	} else {
 		return functions.ManhattanDistance_Go_F32(x, y)
 	}
@@ -503,6 +543,8 @@ func MatMul(x, y []float32, n int) []float32 {
 	dst := make([]float32, m*p)
 	if functions.UseAVX2 {
 		functions.MatMul_Parallel_AVX2_F32(dst, x, y, m, n, p)
+	} else if functions.UseNEON {
+		functions.MatMul_Parallel_NEON_F32(dst, x, y, m, n, p)
 	} else {
 		functions.MatMul_Parallel_Go(dst, x, y, m, n, p)
 	}
@@ -520,6 +562,8 @@ func MatMul_Into(dst, x, y []float32, n int) []float32 {
 	Zeros_Into(dst, m*p)
 	if functions.UseAVX2 {
 		functions.MatMul_Parallel_AVX2_F32(dst, x, y, m, n, p)
+	} else if functions.UseNEON {
+		functions.MatMul_Parallel_NEON_F32(dst, x, y, m, n, p)
 	} else {
 		functions.MatMul_Parallel_Go(dst, x, y, m, n, p)
 	}
@@ -543,6 +587,8 @@ func Mat4Mul_Into(dst, x, y []float32) []float32 {
 	}
 	if functions.UseAVX2 {
 		functions.Mat4Mul_AVX2_F32(dst, x, y)
+	} else if functions.UseNEON {
+		functions.Mat4Mul_NEON_F32(dst, x, y)
 	} else {
 		functions.Mat4Mul_Go(dst, x, y)
 	}
@@ -562,6 +608,8 @@ func Sqrt(x []float32) []float32 {
 func Sqrt_Inplace(x []float32) {
 	if functions.UseAVX2 {
 		functions.Sqrt_AVX2_F32(x)
+	} else if functions.UseNEON {
+		functions.Sqrt_NEON_F32(x)
 	} else {
 		functions.Sqrt_Go_F32(x)
 	}
@@ -588,6 +636,8 @@ func Round(x []float32) []float32 {
 func Round_Inplace(x []float32) {
 	if functions.UseAVX2 {
 		functions.Round_AVX2_F32(x)
+	} else if functions.UseNEON {
+		functions.Round_NEON_F32(x)
 	} else {
 		functions.Round_Go_F32(x)
 	}
@@ -614,6 +664,8 @@ func Floor(x []float32) []float32 {
 func Floor_Inplace(x []float32) {
 	if functions.UseAVX2 {
 		functions.Floor_AVX2_F32(x)
+	} else if functions.UseNEON {
+		functions.Floor_NEON_F32(x)
 	} else {
 		functions.Floor_Go_F32(x)
 	}
@@ -640,6 +692,8 @@ func Ceil(x []float32) []float32 {
 func Ceil_Inplace(x []float32) {
 	if functions.UseAVX2 {
 		functions.Ceil_AVX2_F32(x)
+	} else if functions.UseNEON {
+		functions.Ceil_NEON_F32(x)
 	} else {
 		functions.Ceil_Go_F32(x)
 	}
@@ -668,6 +722,8 @@ func Pow_Inplace(x, y []float32) {
 	checkOverlap(x, y)
 	if functions.UseAVX2 {
 		functions.Pow_AVX2_F32(x, y)
+	} else if functions.UseNEON {
+		functions.Pow_NEON_F32(x, y)
 	} else {
 		functions.Pow_Go_F32(x, y)
 	}
@@ -696,6 +752,8 @@ func Sin(x []float32) []float32 {
 func Sin_Inplace(x []float32) {
 	if functions.UseAVX2 {
 		functions.Sin_AVX2_F32(x)
+	} else if functions.UseNEON {
+		functions.Sin_NEON_F32(x)
 	} else {
 		functions.Sin_Go_F32(x)
 	}
@@ -721,6 +779,8 @@ func Cos(x []float32) []float32 {
 func Cos_Inplace(x []float32) {
 	if functions.UseAVX2 {
 		functions.Cos_AVX2_F32(x)
+	} else if functions.UseNEON {
+		functions.Cos_NEON_F32(x)
 	} else {
 		functions.Cos_Go_F32(x)
 	}
@@ -744,6 +804,8 @@ func SinCos_Into(dstSin, dstCos, x []float32) {
 	checkOverlap(dstCos, x)
 	if functions.UseAVX2 {
 		functions.SinCos_AVX2_F32(dstSin, dstCos, x)
+	} else if functions.UseNEON {
+		functions.SinCos_NEON_F32(dstSin, dstCos, x)
 	} else {
 		functions.SinCos_Go_F32(dstSin, dstCos, x)
 	}
@@ -760,6 +822,8 @@ func Exp(x []float32) []float32 {
 func Exp_Inplace(x []float32) {
 	if functions.UseAVX2 {
 		functions.Exp_AVX2_F32(x)
+	} else if functions.UseNEON {
+		functions.Exp_NEON_F32(x)
 	} else {
 		functions.Exp_Go_F32(x)
 	}
@@ -785,6 +849,8 @@ func Log(x []float32) []float32 {
 func Log_Inplace(x []float32) {
 	if functions.UseAVX2 {
 		functions.Log_AVX2_F32(x)
+	} else if functions.UseNEON {
+		functions.Log_NEON_F32(x)
 	} else {
 		functions.Log_Go_F32(x)
 	}
@@ -810,6 +876,8 @@ func Log2(x []float32) []float32 {
 func Log2_Inplace(x []float32) {
 	if functions.UseAVX2 {
 		functions.Log2_AVX2_F32(x)
+	} else if functions.UseNEON {
+		functions.Log2_NEON_F32(x)
 	} else {
 		functions.Log2_Go_F32(x)
 	}
@@ -835,6 +903,8 @@ func Log10(x []float32) []float32 {
 func Log10_Inplace(x []float32) {
 	if functions.UseAVX2 {
 		functions.Log10_AVX2_F32(x)
+	} else if functions.UseNEON {
+		functions.Log10_NEON_F32(x)
 	} else {
 		functions.Log10_Go_F32(x)
 	}
@@ -856,6 +926,8 @@ func Min(x []float32) float32 {
 	checkNotEmpty(x)
 	if functions.UseAVX2 {
 		return functions.Min_AVX2_F32(x)
+	} else if functions.UseNEON {
+		return functions.Min_NEON_F32(x)
 	} else {
 		return functions.Min_Go(x)
 	}
@@ -866,6 +938,8 @@ func ArgMin(x []float32) int {
 	checkNotEmpty(x)
 	if functions.UseAVX2 {
 		return functions.ArgMin_AVX2_F32(x)
+	} else if functions.UseNEON {
+		return functions.ArgMin_NEON_F32(x)
 	} else {
 		return functions.ArgMin_Go(x)
 	}
@@ -885,6 +959,8 @@ func Minimum_Inplace(x, y []float32) {
 	checkOverlap(x, y)
 	if functions.UseAVX2 {
 		functions.Minimum_AVX2_F32(x, y)
+	} else if functions.UseNEON {
+		functions.Minimum_NEON_F32(x, y)
 	} else {
 		functions.Minimum_Go(x, y)
 	}
@@ -912,6 +988,8 @@ func MinimumNumber(x []float32, a float32) []float32 {
 func MinimumNumber_Inplace(x []float32, a float32) {
 	if functions.UseAVX2 {
 		functions.MinimumNumber_AVX2_F32(x, a)
+	} else if functions.UseNEON {
+		functions.MinimumNumber_NEON_F32(x, a)
 	} else {
 		functions.MinimumNumber_Go(x, a)
 	}
@@ -932,6 +1010,8 @@ func Max(x []float32) float32 {
 	checkNotEmpty(x)
 	if functions.UseAVX2 {
 		return functions.Max_AVX2_F32(x)
+	} else if functions.UseNEON {
+		return functions.Max_NEON_F32(x)
 	} else {
 		return functions.Max_Go(x)
 	}
@@ -942,6 +1022,8 @@ func ArgMax(x []float32) int {
 	checkNotEmpty(x)
 	if functions.UseAVX2 {
 		return functions.ArgMax_AVX2_F32(x)
+	} else if functions.UseNEON {
+		return functions.ArgMax_NEON_F32(x)
 	} else {
 		return functions.ArgMax_Go(x)
 	}
@@ -961,6 +1043,8 @@ func Maximum_Inplace(x, y []float32) {
 	checkOverlap(x, y)
 	if functions.UseAVX2 {
 		functions.Maximum_AVX2_F32(x, y)
+	} else if functions.UseNEON {
+		functions.Maximum_NEON_F32(x, y)
 	} else {
 		functions.Maximum_Go(x, y)
 	}
@@ -988,6 +1072,8 @@ func MaximumNumber(x []float32, a float32) []float32 {
 func MaximumNumber_Inplace(x []float32, a float32) {
 	if functions.UseAVX2 {
 		functions.MaximumNumber_AVX2_F32(x, a)
+	} else if functions.UseNEON {
+		functions.MaximumNumber_NEON_F32(x, a)
 	} else {
 		functions.MaximumNumber_Go(x, a)
 	}
@@ -1011,6 +1097,12 @@ func Find(x []float32, a float32) int {
 			return -1
 		}
 		return idx
+	} else if functions.UseNEON {
+		idx := functions.Find_NEON_F32(x, a)
+		if idx == len(x) {
+			return -1
+		}
+		return idx
 	} else {
 		return functions.Find_Go(x, a)
 	}
@@ -1029,6 +1121,8 @@ func Lt_Into(dst []bool, x, y []float32) []bool {
 	dst = checkCapacity(dst, x)
 	if functions.UseAVX2 {
 		functions.Lt_AVX2_F32(dst, x, y)
+	} else if functions.UseNEON {
+		functions.Lt_NEON_F32(dst, x, y)
 	} else {
 		functions.Lt_Go(dst, x, y)
 	}
@@ -1048,6 +1142,8 @@ func LtNumber_Into(dst []bool, x []float32, a float32) []bool {
 	dst = checkCapacity(dst, x)
 	if functions.UseAVX2 {
 		functions.LtNumber_AVX2_F32(dst, x, a)
+	} else if functions.UseNEON {
+		functions.LtNumber_NEON_F32(dst, x, a)
 	} else {
 		functions.LtNumber_Go(dst, x, a)
 	}
@@ -1067,6 +1163,8 @@ func Lte_Into(dst []bool, x, y []float32) []bool {
 	dst = checkCapacity(dst, x)
 	if functions.UseAVX2 {
 		functions.Lte_AVX2_F32(dst, x, y)
+	} else if functions.UseNEON {
+		functions.Lte_NEON_F32(dst, x, y)
 	} else {
 		functions.Lte_Go(dst, x, y)
 	}
@@ -1086,6 +1184,8 @@ func LteNumber_Into(dst []bool, x []float32, a float32) []bool {
 	dst = checkCapacity(dst, x)
 	if functions.UseAVX2 {
 		functions.LteNumber_AVX2_F32(dst, x, a)
+	} else if functions.UseNEON {
+		functions.LteNumber_NEON_F32(dst, x, a)
 	} else {
 		functions.LteNumber_Go(dst, x, a)
 	}
@@ -1105,6 +1205,8 @@ func Gt_Into(dst []bool, x, y []float32) []bool {
 	dst = checkCapacity(dst, x)
 	if functions.UseAVX2 {
 		functions.Gt_AVX2_F32(dst, x, y)
+	} else if functions.UseNEON {
+		functions.Gt_NEON_F32(dst, x, y)
 	} else {
 		functions.Gt_Go(dst, x, y)
 	}
@@ -1124,6 +1226,8 @@ func GtNumber_Into(dst []bool, x []float32, a float32) []bool {
 	dst = checkCapacity(dst, x)
 	if functions.UseAVX2 {
 		functions.GtNumber_AVX2_F32(dst, x, a)
+	} else if functions.UseNEON {
+		functions.GtNumber_NEON_F32(dst, x, a)
 	} else {
 		functions.GtNumber_Go(dst, x, a)
 	}
@@ -1143,6 +1247,8 @@ func Gte_Into(dst []bool, x, y []float32) []bool {
 	dst = checkCapacity(dst, x)
 	if functions.UseAVX2 {
 		functions.Gte_AVX2_F32(dst, x, y)
+	} else if functions.UseNEON {
+		functions.Gte_NEON_F32(dst, x, y)
 	} else {
 		functions.Gte_Go(dst, x, y)
 	}
@@ -1162,6 +1268,8 @@ func GteNumber_Into(dst []bool, x []float32, a float32) []bool {
 	dst = checkCapacity(dst, x)
 	if functions.UseAVX2 {
 		functions.GteNumber_AVX2_F32(dst, x, a)
+	} else if functions.UseNEON {
+		functions.GteNumber_NEON_F32(dst, x, a)
 	} else {
 		functions.GteNumber_Go(dst, x, a)
 	}
@@ -1181,6 +1289,8 @@ func Eq_Into(dst []bool, x, y []float32) []bool {
 	dst = checkCapacity(dst, x)
 	if functions.UseAVX2 {
 		functions.Eq_AVX2_F32(dst, x, y)
+	} else if functions.UseNEON {
+		functions.Eq_NEON_F32(dst, x, y)
 	} else {
 		functions.Eq_Go(dst, x, y)
 	}
@@ -1199,6 +1309,8 @@ func EqNumber_Into(dst []bool, x []float32, a float32) []bool {
 	dst = checkCapacity(dst, x)
 	if functions.UseAVX2 {
 		functions.EqNumber_AVX2_F32(dst, x, a)
+	} else if functions.UseNEON {
+		functions.EqNumber_NEON_F32(dst, x, a)
 	} else {
 		functions.EqNumber_Go(dst, x, a)
 	}
@@ -1218,6 +1330,8 @@ func Neq_Into(dst []bool, x, y []float32) []bool {
 	dst = checkCapacity(dst, x)
 	if functions.UseAVX2 {
 		functions.Neq_AVX2_F32(dst, x, y)
+	} else if functions.UseNEON {
+		functions.Neq_NEON_F32(dst, x, y)
 	} else {
 		functions.Neq_Go(dst, x, y)
 	}
@@ -1236,6 +1350,8 @@ func NeqNumber_Into(dst []bool, x []float32, a float32) []bool {
 	dst = checkCapacity(dst, x)
 	if functions.UseAVX2 {
 		functions.NeqNumber_AVX2_F32(dst, x, a)
+	} else if functions.UseNEON {
+		functions.NeqNumber_NEON_F32(dst, x, a)
 	} else {
 		functions.NeqNumber_Go(dst, x, a)
 	}
@@ -1255,6 +1371,8 @@ func Not(x []bool) []bool {
 func Not_Inplace(x []bool) {
 	if functions.UseAVX2 {
 		functions.Not_AVX2(x)
+	} else if functions.UseNEON {
+		functions.Not_NEON(x)
 	} else {
 		functions.Not_Go(x)
 	}
@@ -1282,6 +1400,8 @@ func And_Inplace(x, y []bool) {
 	checkOverlap(x, y)
 	if functions.UseAVX2 {
 		functions.And_AVX2(x, y)
+	} else if functions.UseNEON {
+		functions.And_NEON(x, y)
 	} else {
 		functions.And_Go(x, y)
 	}
@@ -1310,6 +1430,8 @@ func Or_Inplace(x, y []bool) {
 	checkOverlap(x, y)
 	if functions.UseAVX2 {
 		functions.Or_AVX2(x, y)
+	} else if functions.UseNEON {
+		functions.Or_NEON(x, y)
 	} else {
 		functions.Or_Go(x, y)
 	}
@@ -1338,6 +1460,8 @@ func Xor_Inplace(x, y []bool) {
 	checkOverlap(x, y)
 	if functions.UseAVX2 {
 		functions.Xor_AVX2(x, y)
+	} else if functions.UseNEON {
+		functions.Xor_NEON(x, y)
 	} else {
 		functions.Xor_Go(x, y)
 	}
@@ -1372,6 +1496,8 @@ func Select_Into(dst, x []float32, y []bool) []float32 {
 func All(x []bool) bool {
 	if functions.UseAVX2 {
 		return functions.All_AVX2(x) != 0
+	} else if functions.UseNEON {
+		return functions.All_NEON(x) != 0
 	} else {
 		return functions.All_Go(x)
 	}
@@ -1381,6 +1507,8 @@ func All(x []bool) bool {
 func Any(x []bool) bool {
 	if functions.UseAVX2 {
 		return functions.Any_AVX2(x) != 0
+	} else if functions.UseNEON {
+		return functions.Any_NEON(x) != 0
 	} else {
 		return functions.Any_Go(x)
 	}
@@ -1390,6 +1518,8 @@ func Any(x []bool) bool {
 func None(x []bool) bool {
 	if functions.UseAVX2 {
 		return functions.None_AVX2(x) != 0
+	} else if functions.UseNEON {
+		return functions.None_NEON(x) != 0
 	} else {
 		return functions.None_Go(x)
 	}
@@ -1399,6 +1529,8 @@ func None(x []bool) bool {
 func Count(x []bool) int {
 	if functions.UseAVX2 {
 		return functions.Count_AVX2(x)
+	} else if functions.UseNEON {
+		return functions.Count_NEON(x)
 	} else {
 		return functions.Count_Go(x)
 	}
@@ -1441,6 +1573,8 @@ func Repeat_Into(dst []float32, a float32, n int) []float32 {
 	}
 	if functions.UseAVX2 {
 		functions.Repeat_AVX2_F32(dst, a, n)
+	} else if functions.UseNEON {
+		functions.Repeat_NEON_F32(dst, a, n)
 	} else {
 		functions.Repeat_Go(dst, a, n)
 	}
@@ -1461,6 +1595,8 @@ func Range_Into(dst []float32, a, b float32) []float32 {
 	}
 	if functions.UseAVX2 {
 		functions.Range_AVX2_F32(dst, a, n)
+	} else if functions.UseNEON {
+		functions.Range_NEON_F32(dst, a, n)
 	} else {
 		functions.Range_Go(dst, a, n)
 	}
@@ -1509,6 +1645,8 @@ func FromBool_Into(dst []float32, x []bool) []float32 {
 	dst = checkCapacity(dst, x)
 	if functions.UseAVX2 {
 		functions.FromBool_AVX2_F32(dst, x)
+	} else if functions.UseNEON {
+		functions.FromBool_NEON_F32(dst, x)
 	} else {
 		functions.FromBool_Go(dst, x)
 	}
@@ -1528,6 +1666,8 @@ func FromInt64_Into(dst []float32, x []int64) []float32 {
 	dst = checkCapacity(dst, x)
 	if functions.UseAVX2 {
 		functions.FromInt64_AVX2_F32(dst, x)
+	} else if functions.UseNEON {
+		functions.FromInt64_NEON_F32(dst, x)
 	} else {
 		functions.FromNumber_Go(dst, x)
 	}
@@ -1547,6 +1687,8 @@ func FromInt32_Into(dst []float32, x []int32) []float32 {
 	dst = checkCapacity(dst, x)
 	if functions.UseAVX2 {
 		functions.FromInt32_AVX2_F32(dst, x)
+	} else if functions.UseNEON {
+		functions.FromInt32_NEON_F32(dst, x)
 	} else {
 		functions.FromNumber_Go(dst, x)
 	}
@@ -1566,6 +1708,8 @@ func FromFloat64_Into(dst []float32, x []float64) []float32 {
 	dst = checkCapacity(dst, x)
 	if functions.UseAVX2 {
 		functions.FromFloat64_AVX2_F32(dst, x)
+	} else if functions.UseNEON {
+		functions.FromFloat64_NEON_F32(dst, x)
 	} else {
 		functions.FromNumber_Go(dst, x)
 	}
@@ -1585,6 +1729,8 @@ func ToBool_Into(dst []bool, x []float64) []bool {
 	dst = checkCapacity(dst, x)
 	if functions.UseAVX2 {
 		functions.ToBool_AVX2_F64(dst, x)
+	} else if functions.UseNEON {
+		functions.ToBool_NEON_F64(dst, x)
 	} else {
 		functions.ToBool_Go(dst, x)
 	}
@@ -1603,6 +1749,8 @@ func ToInt64_Into(dst []int64, x []float32) []int64 {
 	dst = checkCapacity(dst, x)
 	if functions.UseAVX2 {
 		functions.ToInt64_AVX2_F32(dst, x)
+	} else if functions.UseNEON {
+		functions.ToInt64_NEON_F32(dst, x)
 	} else {
 		functions.ToNumber_Go(dst, x)
 	}
@@ -1621,6 +1769,8 @@ func ToInt32_Into(dst []int32, x []float32) []int32 {
 	dst = checkCapacity(dst, x)
 	if functions.UseAVX2 {
 		functions.ToInt32_AVX2_F32(dst, x)
+	} else if functions.UseNEON {
+		functions.ToInt32_NEON_F32(dst, x)
 	} else {
 		functions.ToNumber_Go(dst, x)
 	}
@@ -1640,6 +1790,8 @@ func ToFloat64_Into(dst []float64, x []float32) []float64 {
 	dst = checkCapacity(dst, x)
 	if functions.UseAVX2 {
 		functions.FromFloat32_AVX2_F64(dst, x)
+	} else if functions.UseNEON {
+		functions.FromFloat32_NEON_F64(dst, x)
 	} else {
 		functions.ToNumber_Go(dst, x)
 	}
